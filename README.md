@@ -2,7 +2,7 @@
 
 A realtime collaborative learning platform built with a Vue frontend and Node.js backend (Express, TypeScript, Prisma, PostgreSQL), containerized with Docker.
 
-## 📦 Monorepo Structure
+## Monorepo Structure
 
 ```
 ├── client/
@@ -13,14 +13,14 @@ A realtime collaborative learning platform built with a Vue frontend and Node.js
 - `server/`: Express.js backend with Prisma and PostgreSQL
 - `docker-compose.yml`: Manages both frontend & backend services using Docker
 
-## 🚀 Features (So Far)
+## Features (So Far)
 
 - User authentication
 - JWT token-based access
 - PostgreSQL database via Prisma ORM
 - Dockerized backend and database setup
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - Vue.js
 - Node.js (Express + TypeScript)
@@ -28,7 +28,7 @@ A realtime collaborative learning platform built with a Vue frontend and Node.js
 - PostgreSQL
 - Docker & Docker Compose
 
-## 🧪 Running the App Locally
+## Running the App Locally
 
 ### 1. Clone the repository
 
