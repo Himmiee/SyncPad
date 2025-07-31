@@ -12,7 +12,7 @@ export const createUserSchema = z
       .string()
       .min(6, "Password must be at least 6 characters")
       .regex(passwordRegex, "Password must include a letter and a number"),
-    avatar: z.string().url().optional(),
+    avatar: z.string().optional(),
   })
   .strict();
 
