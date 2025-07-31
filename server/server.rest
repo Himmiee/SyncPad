@@ -1,0 +1,19 @@
+
+###  Login (Generates Access and Sets Refresh Token in Cookie)
+POST http://localhost:3030/v1/users/login
+Content-Type: application/json
+
+{
+  "email": "your_email@example.com",
+  "password": "YourPassword@123"
+}
+###
+
+### Refresh Access Token
+#  Paste the refreshToken from the login response cookie below
+POST http://localhost:3030/v1/users/refresh
+Cookie: refreshToken=PASTE_YOUR_REFRESH_TOKEN_HERE
+###
+
+### Get All Users (no auth required )
+GET http://localhost:3030/v1/users
