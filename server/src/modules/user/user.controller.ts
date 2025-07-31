@@ -11,7 +11,9 @@ export const CreateUser = async (
 ) => {
   try {
     const data = createUserSchema.parse(req.body);
-    const { user, token } = await userService.createUser(data);
+    const file = req.file;
+
+    const { user, token } = await userService.createUser(data,file);
 
     logger.info("Created user:", user.email);
 
