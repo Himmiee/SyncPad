@@ -3,6 +3,7 @@ import prisma from "../../config/db";
 import { CreateUserInput, LoginInput } from "./user.validator";
 import { compareSync, hashSync } from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { signAccessToken, signRefreshToken } from "@/config/jwt";
 
 export const createUser = async (
   data: CreateUserInput,
@@ -43,16 +44,13 @@ export const createUser = async (
     },
   });
 
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
-    expiresIn: "1d",
-  });
+  const accessToken = signAccessToken(user.id);
 
   return {
     user,
-    token,
+    token: accessToken,
   };
 };
-
 
 // Find User by ID
 export const findUserById = async (id: number) => {
@@ -64,6 +62,7 @@ export const findUserById = async (id: number) => {
       id: true,
       username: true,
       email: true,
+      refreshToken: true,
       createdAt: true,
     },
   });
@@ -92,8 +91,12 @@ export const loginUser = async (data: LoginInput) => {
   if (!isValid) {
     throw new Error("Invalid credentials");
   }
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
-    expiresIn: "1d",
+  const accessToken = signAccessToken(user.id);
+  const refreshToken = signRefreshToken(user.id);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { refreshToken },
   });
 
   return {
@@ -103,7 +106,8 @@ export const loginUser = async (data: LoginInput) => {
       email: user.email,
       createdAt: user.createdAt,
     },
-    token,
+    token: accessToken,
+    refreshToken,
   };
 };
 

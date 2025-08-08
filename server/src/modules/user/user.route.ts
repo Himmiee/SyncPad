@@ -13,4 +13,8 @@ router.post("/login", userControllers.LoginUser);
 //api/users
 router.get("/", userControllers.ListUsers);
 
+//refresh
+router.post("/refresh", userControllers.RefreshToken);
+
+
 export default router;
