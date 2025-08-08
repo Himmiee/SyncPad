@@ -37,9 +37,7 @@ export const LoginUser = async (
 ) => {
   try {
     const data = loginUserSchema.parse(req.body);
-    const { user, token, refreshToken } = await userService.loginUser(
-      data
-    );
+    const { user, token, refreshToken } = await userService.loginUser(data);
 
     logger.info("Logged in user:", user.email);
 
@@ -48,14 +46,14 @@ export const LoginUser = async (
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, 
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({
       success: true,
       message: "User logged in successfully",
       data: user,
-      token: token, 
+      token: token,
     });
   } catch (err) {
     next(err);
@@ -104,7 +102,6 @@ export const RefreshToken = async (
   next: NextFunction
 ) => {
   try {
-
     const refreshToken = req.cookies.refreshToken;
 
     if (!refreshToken) return res.status(401).json({ message: "No token" });
@@ -113,7 +110,7 @@ export const RefreshToken = async (
       const payload = verifyRefreshToken(refreshToken);
       const user = await userService.findUserById(payload.userId);
 
-       if (!user || user.refreshToken !== refreshToken) {
+      if (!user || user.refreshToken !== refreshToken) {
         return res.status(403).json({ message: "Invalid refresh token" });
       }
 

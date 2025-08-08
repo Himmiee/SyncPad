@@ -62,6 +62,7 @@ export const findUserById = async (id: number) => {
       id: true,
       username: true,
       email: true,
+      avatar: true,
       refreshToken: true,
       createdAt: true,
     },
@@ -114,7 +115,13 @@ export const loginUser = async (data: LoginInput) => {
 // Get all users
 export const listUsers = async () => {
   return prisma.user.findMany({
-    select: { id: true, username: true, email: true, createdAt: true },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      createdAt: true,
+      avatar: true,
+    },
   });
 };
 
