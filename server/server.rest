@@ -17,3 +17,5 @@ Cookie: refreshToken=PASTE_YOUR_REFRESH_TOKEN_HERE
 
 ### Get All Users (no auth required )
 GET http://localhost:3030/v1/users
+
+

@@ -22,4 +22,15 @@ model User {
   refreshToken  String? 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  notes        Note[]    @relation("UserNotes")
+}
+
+model Note {
+  id         Int      @id @default(autoincrement())
+  title      String
+  content    Json?
+  ownerId    Int
+  owner      User     @relation("UserNotes", fields: [ownerId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
